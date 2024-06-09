@@ -449,7 +449,8 @@ argocd login localhost:8080
 Perceba que ele irá pedir o usuário e a senha, mas não se preocupe, pois o usuário padrão do ArgoCD é o `admin`, e a senha inicial está armazenada em um secret, então vamos executar o seguinte comando para pegar a senha:
 
 ```bash
-kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
+# Adicionado comando sed para remover o último caracter
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d | sed 's/.$//'
 ```
 
 &nbsp;
