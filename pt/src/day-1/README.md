@@ -473,8 +473,13 @@ Context 'localhost:8080' updated
 
 &nbsp;
 
-Pronto, estamos autenticados no ArgoCD. Agora vamos adicionar o nosso cluster Kubernetes ao ArgoCD.
+Pronto, estamos autenticados no ArgoCD. 
 
+Caso queira alterar a senha inicial ( o que é recomendável) faça:
+```bash
+argocd account update-password
+````
+Agora vamos adicionar o nosso cluster Kubernetes ao ArgoCD.
 Para isso, vamos ver qual o contexto do nosso cluster Kubernetes:
 
 ```bash
