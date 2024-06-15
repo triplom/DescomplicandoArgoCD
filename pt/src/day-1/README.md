@@ -451,7 +451,7 @@ Perceba que ele irá pedir o usuário e a senha, mas não se preocupe, pois o us
 ```bash
 # Comando para ver o password inicial
 argocd admin initial-password -n argocd
-
+```
 Outra opção:
 ```bash
 # Adicionado comando sed para remover o último caracter
