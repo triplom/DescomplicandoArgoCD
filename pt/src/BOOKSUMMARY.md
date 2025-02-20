@@ -1,7 +1,9 @@
-<details>
-<summary class="summary">DAY-1</summary>
+# Book Summary
 
-## Conteúdo do Day-1
+## DAY-1
+
+### Conteúdo do Day-1
+
 - [Descomplicando ArgoCD - DAY-1](day-1/index.html#descomplicando-argocd---day-1)
   - [O que vamos aprender no Day-1?](day-1/index.html#o-que-vamos-aprender-no-day-1)
   - [Conteúdo do Day-1](day-1/index.html#conteúdo-do-day-1)
@@ -18,4 +20,4 @@
     - [Primeiros passos com o ArgoCD e nossa app](day-1/index.html#primeiros-passos-com-o-argocd-e-nossa-app)
   - [Final Day-1](day-1/index.html#final-day-1)
 
-</details>
+---

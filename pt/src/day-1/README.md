@@ -16,10 +16,10 @@ Enfim, muita coisa interessante para aprender no day-1, e para isso, vamos preci
 
 Preencheu os pré-requisitos? Então vamos lá!
 
-&nbsp;
-
+---
 
 ## Conteúdo do Day-1
+
 - [Descomplicando ArgoCD - DAY-1](#descomplicando-argocd---day-1)
   - [O que vamos aprender no Day-1?](#o-que-vamos-aprender-no-day-1)
   - [Conteúdo do Day-1](#conteúdo-do-day-1)
@@ -36,7 +36,7 @@ Preencheu os pré-requisitos? Então vamos lá!
     - [Primeiros passos com o ArgoCD e nossa app](#primeiros-passos-com-o-argocd-e-nossa-app)
   - [Final Day-1](#final-day-1)
 
-&nbsp;
+---
 
 ## O que é o ArgoCD?
 
@@ -56,10 +56,9 @@ Um forte característica do ArgoCD é a sua separação de responsabilidades qua
 
 Acho que essa é uma boa apresentação do ArgoCD, e nem vou vou precisar falar que ele é peça fundamental nas melhores engenharías de software do mundo.
 
-Está preparado para mais essa viajem com o objetivo de descomplicar mais um assunto, o ArgoCD?
+Está preparado para mais essa viajem com o objetivo de descomplicar mais um assunto, o ArgoCD? #VAIIII
 
-#VAIIII
-
+---
 
 ## O que é GitOps?
 
@@ -119,7 +118,7 @@ spec: # especificação do recurso
           name: nginx-config # nome do volume
 ```
 
-&nbsp;
+---
 
 Vamos dar o nome para esse arquivo de `nginx-deployment.yaml`.
 
@@ -133,12 +132,11 @@ Para aplicar esse arquivo no Kubernetes, basta executar o seguinte comando:
 kubectl apply -f nginx-deployment.yaml
 ```
 
-&nbsp;
+---
 
-Vamos imaginar que por algum motivo precisamos mudar a quantidade de réplicas do Nginx para 3. Nós desejamos declarar o estado da nossa aplicação para 3 réplicas. 
+Vamos imaginar que por algum motivo precisamos mudar a quantidade de réplicas do Nginx para 3. Nós desejamos declarar o estado da nossa aplicação para 3 réplicas.
 
 Para isso, basta declarar, alterar a quantidade de réplicas do Nginx para 3 no arquivo `nginx-deployment.yaml`:
-
 
 ```yaml
 apiVersion: apps/v1 # versão da API
@@ -186,7 +184,7 @@ spec: # especificação do recurso
           name: nginx-config # nome do volume
 ```
 
-&nbsp;
+---
 
 Para que sua vonta seja aplicada, basta executar o seguinte comando:
 
@@ -194,7 +192,7 @@ Para que sua vonta seja aplicada, basta executar o seguinte comando:
 kubectl apply -f nginx-deployment.yaml
 ```
 
-&nbsp;
+---
 
 Pronto, agora o Kubernetes sabe que você deseja que o Nginx esteja rodando com 3 réplicas e assim o fez.
 
@@ -206,7 +204,7 @@ Se é importante para o GitOps, é importante para o ArgoCD, e é por isso que o
 
 Eu não vou entrar em muito detalhes aqui sobre o que é o GitOps, pois teremos um repo só para isso. Mas basicamente o GitOps é uma metodologia de gerenciamento de configurações, onde o Git é a única fonte de verdade, e o Git é o único responsável por declarar o estado desejado da aplicação.
 
-&nbsp;
+---
 
 ## Pré-requisitos
 
@@ -226,7 +224,7 @@ Ele possui ainda uma interface gráfica, que é o ArgoCD UI, mas não iremos abo
 
 No começo ainda vamos utilizar somente o CLI, mas muito em breve vamos utilizar manifestos para definir as nossa aplicações dentro do ArgoCD.
 
-&nbsp;
+---
 
 ### Instalando o ArgoCD como um operador no Kubernetes
 
@@ -235,8 +233,6 @@ Para instalar o ArgoCD como um operador no Kubernetes, antes precisamos criar um
 ```bash
 kubectl create namespace argocd
 ```
-
-&nbsp;
 
 A saída desse comando será algo parecido com isso:
 
@@ -249,7 +245,6 @@ Agora vamos instalar o ArgoCD como um operador no Kubernetes:
 ```bash
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
-&nbsp;
 
 A saída desse comando será algo parecido com isso:
 
@@ -313,21 +308,15 @@ networkpolicy.networking.k8s.io/argocd-repo-server-network-policy created
 networkpolicy.networking.k8s.io/argocd-server-network-policy created
 ```
 
-&nbsp;
-
 Como você pode ver, com o comando acima configuramos o ArgoCD através da criação de vários objetos no Kubernetes, como por exemplo, um `deployment` para o `argocd-server`, um `service` para o `argocd-server`, um `configmap` para o `argocd-cm`, e por aí vai.
 
 Caso você queira conhecer mais sobre o projeto, vá até o [repositório oficial](https://github.com/argoproj/argo-cd)
-
-&nbsp;
 
 Vamos ver se os pods do ArgoCD foram criados com sucesso:
 
 ```bash
 kubectl get pods -n argocd
 ```
-
-&nbsp;
 
 A saída desse comando será algo parecido com isso:
 
@@ -342,25 +331,21 @@ argocd-repo-server-76f77874d7-8qscp                 1/1     Running   0         
 argocd-server-64d5654c48-tkv65                      1/1     Running   0          116s
 ```
 
-&nbsp;
-
 Onde temos os seguintes pods:
 
-* argocd-application-controller-0 - Responsável por gerenciar os recursos do Kubernetes
-* argocd-applicationset-controller-5f67f4c987-vdtpr - Controller responsável por gerenciar os `ApplicationSets`
-* argocd-dex-server-5859d89dcc-c69fx - Responsável por gerenciar a autenticação
-* argocd-notifications-controller-75c986587-7jznn - Responsável por gerenciar as notificações, como por exemplo, quando um `Application` é atualizado
-* argocd-redis-74c8c9c8c6-mzdlv - Responsável por armazenar os dados do ArgoCD
-* argocd-repo-server-76f77874d7-8qscp - Responsável por gerenciar os repositórios
-* argocd-server-64d5654c48-tkv65 - Responsável por expor a interface gráfica do ArgoCD
-
-&nbsp;
+- argocd-application-controller-0 - Responsável por gerenciar os recursos do Kubernetes
+- argocd-applicationset-controller-5f67f4c987-vdtpr - Controller responsável por gerenciar os `ApplicationSets`
+- argocd-dex-server-5859d89dcc-c69fx - Responsável por gerenciar a autenticação
+- argocd-notifications-controller-75c986587-7jznn - Responsável por gerenciar as notificações, como por exemplo, quando um `Application` é atualizado
+- argocd-redis-74c8c9c8c6-mzdlv - Responsável por armazenar os dados do ArgoCD
+- argocd-repo-server-76f77874d7-8qscp - Responsável por gerenciar os repositórios
+- argocd-server-64d5654c48-tkv65 - Responsável por expor a interface gráfica do ArgoCD
 
 Pronto, apresentados. No decorrer do livro iremos falar mais sobre cada um desses componentes, mas por agora é o que você precisa saber.
 
 Todos os nossos podes estão com o status `Running`, o que significa que eles estão funcionando corretamente.
 
-&nbsp;
+---
 
 ## Instalando o ArgoCD CLI
 
@@ -371,14 +356,14 @@ Nós vamos focar a primeira parte desse livro no CLI, para que você consiga ent
 Para instalar o `argocd` CLI no Linux, basta executar o seguinte comando:
 
 ```bash
-curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+curl -SL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
 
 sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 
 rm argocd-linux-amd64
 ```
 
-&nbsp;
+---
 
 Com o comando acima fizemos o download do binário do `argocd` CLI, e o instalamos no diretório `/usr/local/bin/argocd`, para fazer a instalação utilizamos o comando `install` do Linux, que é um comando que faz a instalação de arquivos e diretórios. Passamos os parâmetros `-m 555` para definir as permissões do arquivo, e o nome do arquivo que queremos instalar.
 
@@ -390,11 +375,9 @@ Vamos ver se ele está funcionando corretamente:
 argocd version
 ```
 
-&nbsp;
-
 Qual a versão do `argocd` CLI que você está utilizando? Comenta lá no Twitter e me marca para eu saber como está sendo essa sua abordagem com o ArgoCD. @badtux_, esse é o meu arroba lá no Twitter.
 
-&nbsp;
+---
 
 ## Autenticando no ArgoCD
 
@@ -406,7 +389,7 @@ Antes de mais nada, precisamos saber qual o endereço do ArgoCD. Para isso, vamo
 kubectl get svc -n argocd
 ```
 
-&nbsp;
+---
 
 A saída desse comando será algo parecido com isso:
 
@@ -422,7 +405,7 @@ argocd-server                             ClusterIP   10.100.25.239    <none>   
 argocd-server-metrics                     ClusterIP   10.100.46.64     <none>        8083/TCP                     12m
 ```
 
-&nbsp;
+---
 
 O service que precisamos por agora do ArgoCD é o `argocd-server`, e o endereço completo é `argocd-server.argocd.svc.cluster.local`.
 
@@ -431,8 +414,6 @@ Vamos fazer o port-forward para acessar o ArgoCD sem precisar expor:
 ```bash
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
-
-&nbsp;
 
 Pronto, agora podemos acessar o ArgoCD através do endereço `localhost:8080`, tanto pelo navegador quanto pelo CLI.
 
@@ -444,21 +425,19 @@ Para fazer a autenticação no ArgoCD, precisamos executar o seguinte comando:
 argocd login localhost:8080
 ```
 
-&nbsp;
-
 Perceba que ele irá pedir o usuário e a senha, mas não se preocupe, pois o usuário padrão do ArgoCD é o `admin`, e a senha inicial está armazenada em um secret, então vamos executar o seguinte comando para pegar a senha:
 
 ```bash
 # Comando para ver o password inicial
 argocd admin initial-password -n argocd
 ```
+
 Outra opção:
+
 ```bash
 # Adicionado comando sed para remover o último caracter
 kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d | sed 's/.$//'
 ```
-
-&nbsp;
 
 A saída será a sua senha inicial, copie ela para que possamos utilizar no próximo comando:
 
@@ -471,14 +450,14 @@ Password:
 Context 'localhost:8080' updated
 ```
 
-&nbsp;
-
-Pronto, estamos autenticados no ArgoCD. 
+Pronto, estamos autenticados no ArgoCD.
 
 Caso queira alterar a senha inicial ( o que é recomendável) faça:
+
 ```bash
 argocd account update-password
 ````
+
 Agora vamos adicionar o nosso cluster Kubernetes ao ArgoCD.
 Para isso, vamos ver qual o contexto do nosso cluster Kubernetes:
 
@@ -486,15 +465,11 @@ Para isso, vamos ver qual o contexto do nosso cluster Kubernetes:
 kubectl config current-context
 ```
 
-&nbsp;
-
 A saída será algo parecido com isso:
 
 ```bash
 girus@eks-cluster.us-east-1.eksctl.io
 ```
-
-&nbsp;
 
 Isso no meu caso que somente estou utilizando um cluster e é um EKS, lá da AWS.
 
@@ -504,15 +479,11 @@ Agora vamos adicionar o nosso cluster ao ArgoCD:
 argocd cluster add O_NOME_DO_SEU_CONTEXT
 ```
 
-&nbsp;
-
 No meu caso:
-    
+
 ```bash
 argocd cluster add girus@eks-cluster.us-east-1.eksctl.io
-``` 
-
-&nbsp;
+```
 
 A saída será algo parecido com isso:
 
@@ -523,8 +494,6 @@ INFO[0005] ClusterRole "argocd-manager-role" created
 INFO[0005] ClusterRoleBinding "argocd-manager-role-binding" created 
 Cluster 'https://F40E37CE91565CC520A53CB1B191CCCA.gr7.us-east-1.eks.amazonaws.com' added
 ```
-
-&nbsp;
 
 Caso esteja utilizando um cluster k8s no mesmo host em que está executando o kubectl, como é o que acontece quando usamos um cluster via kind ou minikube por exemplo, você pode ter o seguinte erro:
 
@@ -556,7 +525,6 @@ clusters:
 
 ```
 
-
 Após essa modificação execute novamente o comando para adicionar o cluster ao ArgoCD
 
 ```bash
@@ -572,8 +540,6 @@ INFO[0001] ClusterRole "argocd-manager-role" updated
 INFO[0001] ClusterRoleBinding "argocd-manager-role-binding" updated 
 Cluster 'https://172.18.0.2:6443' added
 ```
-
-&nbsp;
 
 Pronto, nosso cluster foi adicionado ao ArgoCD.
 
@@ -591,15 +557,11 @@ https://F40E37CE91565CC520A53CB1B191CCCA.gr7.us-east-1.eks.amazonaws.com  girus@
 https://kubernetes.default.svc                                            in-cluster                                      Unknown  Cluster has no applications and is not being monitored. 
 ```
 
-&nbsp;
-
 Na saída, temos o nosso cluster adicionado, e o cluster local, que é o `in-cluster`, que vem por padrão.
-
-&nbsp;
 
 Pronto, já temos onde a nossa aplicação vai ser implantada, agora vamos criar a nossa aplicação para o ArgoCD.
 
-&nbsp;
+---
 
 ## Criando a aplicação no ArgoCD
 
@@ -607,7 +569,7 @@ Agora que já temos o nosso cluster adicionado ao ArgoCD, vamos criar a nossa ap
 
 ### Criando a nossa app exemplo
 
-Para o nosso exemplo, vamos utilizar um repo que criem no GitHub, e o código está disponível [aqui](https://github.com/badtuxx/k8s-deploy-nginx-example). 
+Para o nosso exemplo, vamos utilizar um repo que criem no GitHub, e o código está disponível [aqui](https://github.com/badtuxx/k8s-deploy-nginx-example).
 
 Eu criei esse repo somente para servir de exemplo para essa nossa primeira parte. O que temos nesse repo são somente quatro arquivos, um que define o nosso `Deployment`, outro que define o nosso `Service`, temos um que define um `ConfigMap` e outro que define um `Pod`.
 
@@ -619,7 +581,7 @@ Já o nosso `ConfigMap` é um `ConfigMap` que terá a configuração default do 
 
 Os arquivos são esses:
 
-* nginx-deployment.yaml
+- nginx-deployment.yaml
 
 ```yaml
 apiVersion: apps/v1 # versão da API
@@ -667,9 +629,9 @@ spec: # especificação do recurso
           name: nginx-config # nome do volume
 ```
 
-&nbsp;
+---
 
-* nginx-service.yaml
+- nginx-service.yaml
 
 ```yaml
 apiVersion: v1 # versão da API
@@ -686,9 +648,9 @@ spec: # especificação do recurso
     app: nginx # label que identifica o pod/deployment que será exposto
 ```
 
-&nbsp;
+---
 
-* nginx-configmap.yaml
+- nginx-configmap.yaml
 
 ```yaml
 apiVersion: v1 # versão da API
@@ -710,9 +672,9 @@ data: # dados do recurso
     }
 ```
 
-&nbsp;
+---
 
-* nginx-pod.yaml
+- nginx-pod.yaml
 
 ```yaml
 apiVersion: v1
@@ -750,11 +712,11 @@ spec:
       name: nginx-config # nome do volume
 ```
 
-&nbsp;
-
 Pronto, explicado o que temos nesse repo. Basicamente quatro manifestos que irão criar um `Deployment` com dois `Pods`, um `Service`, um `ConfigMap`, além de um `Pod`solto.
 
 A mágica que queremos aqui é fazer com que o ArgoCD faça o deploy do nosso `Deployment` e `Service` e tudo mais que está no nosso repo, mas para isso precisamos criar um `Application` que irá fazer o deploy do nosso `Deployment` e `Service`.
+
+---
 
 ### Criando a app no ArgoCD usando o ArgoCD CLI
 
@@ -764,15 +726,13 @@ Já sabemos o que queremos ter em nosso cluster, agora bora criar a nossa aplica
 argocd app create nginx-app --repo https://github.com/badtuxx/k8s-deploy-nginx-example.git --path . --dest-server https://F40E37CE91565CC520A53CB1B191CCCA.gr7.us-east-1.eks.amazonaws.com --dest-namespace default
 ```
 
-&nbsp;
-
-
 Onde:
-* `nginx-app` é o nome da nossa aplicação
-* `repo` é o repo onde está o nosso código
-* `path` é o caminho onde está o nosso código
-* `dest-server` é o cluster onde queremos fazer o deploy
-* `dest-namespace` é o namespace onde queremos fazer o deploy
+
+- `nginx-app` é o nome da nossa aplicação
+- `repo` é o repo onde está o nosso código
+- `path` é o caminho onde está o nosso código
+- `dest-server` é o cluster onde queremos fazer o deploy
+- `dest-namespace` é o namespace onde queremos fazer o deploy
 
 A saída do comando será algo como:
 
@@ -780,7 +740,7 @@ A saída do comando será algo como:
 Application 'nginx-app' created
 ```
 
-&nbsp;
+---
 
 ### Primeiros passos com o ArgoCD e nossa app
 
@@ -790,8 +750,6 @@ Agora vamos ver se o nosso `Application` foi criado com sucesso:
 argocd app list
 ```
 
-&nbsp;
-
 A saída do comando será algo como:
 
 ```bash
@@ -799,15 +757,11 @@ NAME     CLUSTER                                                                
 argocd/nginx-app  https://F40E37CE91565CC520A53CB1B191CCCA.gr7.us-east-1.eks.amazonaws.com  default    default  OutOfSync  Missing  <none>      <none>      https://github.com/badtuxx/k8s-deploy-nginx-example.git  . 
 ```
 
-&nbsp;
-
 Agora vamos ver o que está acontecendo com o nosso `Application`:
 
 ```bash
 argocd app get nginx-app
 ```
-
-&nbsp;
 
 Ele irá retornar algo como:
 
@@ -832,14 +786,10 @@ GROUP  KIND        NAMESPACE  NAME          STATUS     HEALTH   HOOK  MESSAGE
 apps   Deployment  default    nginx-server  OutOfSync  Missing        
 ```
 
-&nbsp;
+ Duas informações importantes aqui:
 
-Duas informações importantes aqui:
-
-* O `Application` está com o status `OutOfSync` e o `Sync Status` também está `OutOfSync`;
-* O `Application` está com o status `Missing` e o `Health Status` também está `Missing`.
-
-&nbsp;
+- O `Application` está com o status `OutOfSync` e o `Sync Status` também está `OutOfSync`;
+- O `Application` está com o status `Missing` e o `Health Status` também está `Missing`.
 
 Precisa de mais alguma informação? Vamos ver o que o ArgoCD está tentando fazer:
 
@@ -847,15 +797,11 @@ Precisa de mais alguma informação? Vamos ver o que o ArgoCD está tentando faz
 argocd app logs nginx-app
 ```
 
-&nbsp;
-
 Ainda não temos nada, pois o ArgoCD ainda não fez nada, pois o nosso `Application` está com o status `OutOfSync` e o `Sync Status` também está `OutOfSync`, então precisamos fazer o sync do nosso `Application` para que o ArgoCD possa fazer o deploy do nosso `Deployment` e `Service`:
 
 ```bash
 argocd app sync nginx-app
 ```
-
-&nbsp;
 
 A saída do comando será algo como:
 
@@ -902,8 +848,6 @@ GROUP  KIND        NAMESPACE  NAME          STATUS  HEALTH       HOOK  MESSAGE
 apps   Deployment  default    nginx-server  Synced  Progressing        deployment.apps/nginx-server created
 ```
 
-&nbsp;
-
 Preste atenção nessa parte aqui:
 
 ```bash
@@ -914,17 +858,13 @@ GROUP  KIND        NAMESPACE  NAME          STATUS  HEALTH       HOOK  MESSAGE
 apps   Deployment  default    nginx-server  Synced  Progressing        deployment.apps/nginx-server created
 ```
 
-&nbsp;
-
-Aqui ele está dizendo que o `ConfigMap` foi criado, o `Service` foi criado, o `Pod` foi criado e o `Deployment` foi criado. Parece que está tudo certo, certo? 
+Aqui ele está dizendo que o `ConfigMap` foi criado, o `Service` foi criado, o `Pod` foi criado e o `Deployment` foi criado. Parece que está tudo certo, certo?
 
 Vamos ver se ele criou algo no Kubernetes:
 
 ```bash
 kubectl get pods
 ```
-
-&nbsp;
 
 Parece que sim hein?
 
@@ -935,15 +875,13 @@ nginx-server-6949f64b59-jc7pj   2/2     Running   0          2m14s
 nginx-server-6949f64b59-l42zn   2/2     Running   0          2m14s
 ```
 
-&nbsp;
-
 Agora vamos ver se o `Service` está funcionando:
 
 ```bash
 kubectl get svc
 ```
 
-&nbsp;
+---
 
 ```bash
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
@@ -951,23 +889,17 @@ kubernetes   ClusterIP   10.100.0.1       <none>        443/TCP    59m
 nginx-svc    ClusterIP   10.100.146.231   <none>        9113/TCP   2m40s
 ```
 
-&nbsp;
-
 Somente falta ver se o `ConfigMap` foi criado:
 
 ```bash
 kubectl get cm
 ```
 
-&nbsp;
-
 ```bash
 NAME               DATA   AGE
 kube-root-ca.crt   1      60m
 nginx-config       1      3m13s
 ```
-
-&nbsp;
 
 Pronto, tudo funcionando.
 
@@ -976,8 +908,6 @@ Bora ver novamente o status do nosso `Application`:
 ```bash
 argocd app get nginx-app
 ```
-
-&nbsp;
 
 ```bash
 Name:               argocd/nginx-app
@@ -1000,8 +930,6 @@ GROUP  KIND        NAMESPACE  NAME          STATUS  HEALTH   HOOK  MESSAGE
 apps   Deployment  default    nginx-server  Synced  Healthy        deployment.apps/nginx-server created
 ```
 
-&nbsp;
-
 Tudo está `Synced` e `Healthy`.
 
 E os logs?
@@ -1009,8 +937,6 @@ E os logs?
 ```bash
 argocd app logs nginx-app --container nginx
 ```
-
-&nbsp;
 
 ```bash
 /docker-entrypoint.sh: Configuration complete; ready for start up
@@ -1024,19 +950,13 @@ argocd app logs nginx-app --container nginx
 2023/03/05 18:04:22 [notice] 1#1: start worker process 22
 ```
 
-&nbsp;
-
 O que ele faz é trazer o log do container `nginx` do pod `nginx-pod` que foi criado pelo `Deployment` `nginx-server`, mesma coisa que se você tivesse feito:
 
 ```bash
 kubectl logs -f nginx-pod -c nginx
 ```
 
-&nbsp;
-
 Simples demais!
-
-&nbsp;
 
 Vamos recapitular os comandos do ArgoCD:
 
@@ -1050,17 +970,17 @@ argocd app logs nginx-app --container nginx # Mostra os logs do aplicativo
 argocd app sync nginx-app # Sincroniza o aplicativo com o repositório
 ```
 
-&nbsp;
-
-
 ## Final Day-1
 
 Acho que é o que precisamos para o nosso primeiro dia de trabalho com o ArgoCD. Durante o dia de hoje você aprendeu:
-*   Como instalar o ArgoCD no Kubernetes
-*   Como autenticar no ArgoCD
-*   Como adicionar um cluster ao ArgoCD
-*   Os detalhes de como criar um deployment, service e configmap no Kubernetes
-*   Como criar um aplicativo no ArgoCD
-*   Como sincronizar um aplicativo no ArgoCD
-*   Como ver o status de um aplicativo no ArgoCD
-*   Como ver os logs de um aplicativo no ArgoCD
+
+- Como instalar o ArgoCD no Kubernetes
+- Como autenticar no ArgoCD
+- Como adicionar um cluster ao ArgoCD
+- Os detalhes de como criar um deployment, service e configmap no Kubernetes
+- Como criar um aplicativo no ArgoCD
+- Como sincronizar um aplicativo no ArgoCD
+- Como ver o status de um aplicativo no ArgoCD
+- Como ver os logs de um aplicativo no ArgoCD
+
+---
